@@ -97,7 +97,7 @@ public class StorageTest {
         );
 
 
-        when(this.notificationGeneratorWritePlatformService.create(refEq(notification))).thenReturn(1L);
+        when(this.notificationGeneratorWritePlatformService.create(any(Notification.class))).thenReturn(1L);
 
         when(this.appUserRepository.findOne(userId)).thenReturn(appUser);
 
@@ -115,8 +115,7 @@ public class StorageTest {
                         notificationContent,
                         isSystemGenerated
                 );
-
-        verify(this.notificationGeneratorWritePlatformService, times(1)).create(refEq(notification));
+        verify(this.notificationGeneratorWritePlatformService, times(1)).create(any(Notification.class));
         verify(this.notificationMapperWritePlatformService, times(1)).create(refEq(notificationMapper));
         verify(this.notificationGeneratorReadRepositoryWrapper, times(1)).findById(1L);
         assertEquals(actualGeneratedNotificationId, new Long(1));
